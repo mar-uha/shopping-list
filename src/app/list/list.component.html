@@ -1,0 +1,13 @@
+<app-add-product></app-add-product>
+
+<p>
+  Product selected: {{myProducts.selectedOptions.selected.length}}
+</p>
+<mat-selection-list #myProducts>
+  <mat-list-option *ngFor="let product of products">
+    {{product.name}}
+  </mat-list-option>
+</mat-selection-list>
+<button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+  <mat-icon>add</mat-icon>
+</button>

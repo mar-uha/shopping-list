@@ -1,0 +1,12 @@
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="standard">
+    <mat-label>Product</mat-label>
+    <input matInput placeholder="Banane" formControlName="name" type="search">
+    <mat-hint>Looking for a product</mat-hint>
+  </mat-form-field>
+
+  <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" type="submit"
+    [disabled]="!productForm.valid">
+    <mat-icon>search</mat-icon>
+  </button>
+</form>
