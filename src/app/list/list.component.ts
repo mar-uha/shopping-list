@@ -27,7 +27,7 @@ export class ListComponent implements OnInit {
     if (!value) {
       this.products = this.allProducts;
     } else {
-      this.products = this.allProducts.filter(f => f.name.includes(value));
+      this.products = this.allProducts.filter(f => f.name.toLowerCase().includes(value.toLowerCase()));
     }
   }
 
@@ -38,7 +38,9 @@ export class ListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((productName: string) => {
-      this.products = this.productsService.create({ name: productName } as Product);
+      if (productName) {
+        this.products = this.productsService.create({ name: productName } as Product);
+      }
     });
   }
 }
