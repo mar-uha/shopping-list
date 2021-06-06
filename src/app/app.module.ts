@@ -9,7 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,13 +18,15 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListComponent } from './list/list.component';
-import { AddProductComponent } from './add-product/add-product.component';
+import { SearchComponent } from './search/search.component';
+import { CreateProductComponent } from './create-product/create-product.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
-    AddProductComponent
+    SearchComponent,
+    CreateProductComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,9 @@ import { AddProductComponent } from './add-product/add-product.component';
     MatButtonModule,
     MatDividerModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatBadgeModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

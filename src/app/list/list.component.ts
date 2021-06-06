@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateProductComponent } from '../create-product/create-product.component';
+import { DialogData } from '../models/dialog-data';
 import { Product } from '../models/product';
+import { ProductsService } from '../products.service';
 
 @Component({
   selector: 'app-list',
@@ -8,24 +12,33 @@ import { Product } from '../models/product';
 })
 export class ListComponent implements OnInit {
 
-  products: Product[] = [
-    {
-      name: 'Banane'
-    },
-    {
-      name: 'Tomates'
-    },
-    {
-      name: 'Concombres'
-    },
-    {
-      name: 'Fêta'
-    }
-  ];
+  allProducts: Product[] = [];
+  products: Product[] = [];
 
-  constructor() { }
+  constructor(public dialog: MatDialog,
+    public productsService: ProductsService) { }
 
   ngOnInit(): void {
+    this.products = this.productsService.list();
+    this.allProducts = this.products;
   }
 
+  filterList(value: string): void {
+    if (!value) {
+      this.products = this.allProducts;
+    } else {
+      this.products = this.allProducts.filter(f => f.name.includes(value));
+    }
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(CreateProductComponent, {
+      width: '250px',
+      data: { productName: '' } as DialogData
+    });
+
+    dialogRef.afterClosed().subscribe((productName: string) => {
+      this.products = this.productsService.create({ name: productName } as Product);
+    });
+  }
 }
