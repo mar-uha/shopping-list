@@ -1,0 +1,14 @@
+<nav class="badges-nav">
+  <!-- Home/List of products -->
+  <a class="badges-nav__destination" routerLink="/" routerLinkActive="badges-nav__destination--active"
+    [routerLinkActiveOptions]="{exact: true}">
+    <mat-icon>storefront</mat-icon>
+    <span class="badges-nav__label">Produts</span>
+  </a>
+
+  <!-- List of product to buy -->
+  <a class="badges-nav__destination" routerLink="/Shopping" routerLinkActive="badges-nav__destination--active">
+    <mat-icon matBadge="{{productToBuyCount}}" matBadgeColor="accent">shopping_cart</mat-icon>
+    <span class="badges-nav__label">Shopping cart</span>
+  </a>
+</nav>

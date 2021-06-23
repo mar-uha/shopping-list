@@ -1,6 +1,5 @@
 <app-search (onLookingFor)="filterList($event)"></app-search>
 
-<mat-icon matBadge="{{myProducts.selectedOptions.selected.length}}">shopping_cart</mat-icon>
 <mat-selection-list #myProducts>
   <mat-list-option *ngFor="let product of products">
     {{product.name}}

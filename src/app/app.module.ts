@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// Angular Material https://material.angular.io/
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,13 +21,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListComponent } from './list/list.component';
 import { SearchComponent } from './search/search.component';
 import { CreateProductComponent } from './create-product/create-product.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { BottomNavComponent } from './bottom-nav/bottom-nav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
     SearchComponent,
-    CreateProductComponent
+    CreateProductComponent,
+    ShoppingCartComponent,
+    BottomNavComponent
   ],
   imports: [
     BrowserModule,
