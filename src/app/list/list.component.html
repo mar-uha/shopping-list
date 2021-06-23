@@ -1,8 +1,5 @@
 <app-add-product></app-add-product>
 
-<p>
-  Product selected: {{myProducts.selectedOptions.selected.length}}
-</p>
 <mat-selection-list #myProducts>
   <mat-list-option *ngFor="let product of products">
     {{product.name}}
@@ -11,3 +8,15 @@
 <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
   <mat-icon>add</mat-icon>
 </button>
+
+<nav class="badges-nav">
+  <a class="badges-nav__destination badges-nav__destination--active" href="#">
+    <mat-icon>storefront</mat-icon>
+    <span class="badges-nav__label">Produts</span>
+  </a>
+
+  <a class="badges-nav__destination" href="#">
+    <mat-icon matBadge="{{myProducts.selectedOptions.selected.length}}" matBadgeColor="accent">shopping_cart</mat-icon>
+    <span class="badges-nav__label">Shopping cart</span>
+  </a>
+</nav>
