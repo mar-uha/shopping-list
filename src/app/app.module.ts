@@ -19,12 +19,16 @@ import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListComponent } from './list/list.component';
 import { AddProductComponent } from './add-product/add-product.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { BottomNavComponent } from './bottom-nav/bottom-nav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
-    AddProductComponent
+    AddProductComponent,
+    ShoppingCartComponent,
+    BottomNavComponent
   ],
   imports: [
     BrowserModule,
