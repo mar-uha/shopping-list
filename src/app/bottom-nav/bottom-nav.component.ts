@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ProductsService } from '../products.service';
 
 @Component({
   selector: 'app-bottom-nav',
@@ -7,11 +8,14 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BottomNavComponent implements OnInit {
 
-  @Input() productToBuyCount = 0;
-
-  constructor() { }
+  productToBuyCount = 0;
+  constructor(public productService: ProductsService) {
+  }
 
   ngOnInit(): void {
+    this.productService.productToBuyCount.subscribe(value => 
+      this.productToBuyCount = value
+    );
   }
 
 }

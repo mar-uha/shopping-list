@@ -14,7 +14,8 @@ export class ListComponent implements OnInit {
 
   allProducts: Product[] = [];
   products: Product[] = [];
-
+  selectedOptions: Product[] = [];
+  
   constructor(public dialog: MatDialog,
     public productsService: ProductsService) { }
 
@@ -42,5 +43,9 @@ export class ListComponent implements OnInit {
         this.products = this.productsService.create({ name: productName } as Product);
       }
     });
+  }
+
+  onNgModelChange(e: any): void{
+    this.productsService.setProductToBuyCount(this.selectedOptions.length);
   }
 }

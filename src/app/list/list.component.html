@@ -1,7 +1,7 @@
-<app-search (onLookingFor)="filterList($event)"></app-search>
+<app-search (searchText)="filterList($event)"></app-search>
 
-<mat-selection-list #myProducts>
-  <mat-list-option *ngFor="let product of products">
+<mat-selection-list #myProducts [(ngModel)]="selectedOptions" (ngModelChange)="onNgModelChange($event)">
+  <mat-list-option *ngFor="let product of products"  [value]="product.name">
     {{product.name}}
   </mat-list-option>
 </mat-selection-list>

@@ -5,14 +5,11 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.sass']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
 
-  @Output() onLookingFor = new EventEmitter<string>();
+  @Output() searchText = new EventEmitter<string>();
 
   constructor() {
-  }
-
-  ngOnInit(): void {
   }
 
   /**
@@ -21,6 +18,6 @@ export class SearchComponent implements OnInit {
    */
   onChange(e: any): void {
     const value = e.target.value;
-    this.onLookingFor.emit(value);
+    this.searchText.emit(value);
   }
 }

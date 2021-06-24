@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Product } from './models/product';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
+
+  productToBuyCount: BehaviorSubject<number> = new BehaviorSubject(0);
 
   constructor() { }
 
@@ -42,4 +45,8 @@ export class ProductsService {
     return products;
   }
   
+  setProductToBuyCount(productCount: number): void {
+    this.productToBuyCount.next(productCount);
+  }
+
 }
