@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Subject } from 'rxjs/internal/Subject';
 import { CreateProductComponent } from '../create-product/create-product.component';
 import { DialogData } from '../models/dialog-data';
 import { Product } from '../models/product';
@@ -12,18 +13,21 @@ import { ProductsService } from '../products.service';
 })
 export class ListComponent implements OnInit {
 
-  productSelectedCount:number = 0;
+  productSelectedCount: number = 0;
   allProducts: Product[] = [];
   products: Product[] = [];
   selectedOptions: String[] = [];
-  
+
+  filterText = "";
+  filterTextChange: Subject<string> = new Subject<string>();
+
   constructor(public dialog: MatDialog,
     public productsService: ProductsService) { }
 
   ngOnInit(): void {
     this.products = this.productsService.list();
     this.allProducts = this.products;
-    this.productsService.productsToBuy.subscribe(products => 
+    this.productsService.productsToBuy.subscribe(products =>
       this.selectedOptions = products.map(p => p.name)
     );
   }
@@ -34,6 +38,7 @@ export class ListComponent implements OnInit {
     } else {
       this.products = this.allProducts.filter(f => f.name.toLowerCase().includes(value.toLowerCase()));
     }
+    this.filterText = value;
   }
 
   openDialog(): void {
@@ -50,7 +55,12 @@ export class ListComponent implements OnInit {
   }
 
   onNgModelChange(e: any): void {
-    const productsToBuy = this.allProducts.filter(p => this.selectedOptions.find(s => s === p.name) !== undefined );
+    const productsToBuy = this.allProducts.filter(p => this.selectedOptions.find(s => s === p.name) !== undefined);
     this.productsService.setProductsToBuy(productsToBuy);
+  }
+
+  addMissingProduct(): void {
+    this.products = this.productsService.create({ name: this.filterText } as Product);
+    this.filterText = "";
   }
 }

@@ -1,10 +1,19 @@
-<app-search (searchText)="filterList($event)"></app-search>
+<app-search [searchText]="filterText" (searchTextChange)="filterList($event)"></app-search>
 
-<mat-selection-list #myProducts [(ngModel)]="selectedOptions" (ngModelChange)="onNgModelChange($event)">
-  <mat-list-option *ngFor="let product of products"  [value]="product.name">
-    {{product.name}}
-  </mat-list-option>
-</mat-selection-list>
-<button class="add-button" (click)="openDialog()" mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+<ng-container *ngIf="products.length > 0; else missingProduct" >
+  <mat-selection-list #myProducts [(ngModel)]="selectedOptions" (ngModelChange)="onNgModelChange($event)">
+    <mat-list-option *ngFor="let product of products"  [value]="product.name">
+      {{product.name}}
+    </mat-list-option>
+  </mat-selection-list>
+</ng-container>
+<ng-template #missingProduct>
+    Adding {{filterText}} ?
+    <button mat-button color="primary" (click)="addMissingProduct()">
+      Add
+    </button>
+</ng-template>
+
+<button class="add-button" (click)="openDialog()" mat-mini-fab color="primary">
   <mat-icon>add</mat-icon>
 </button>
