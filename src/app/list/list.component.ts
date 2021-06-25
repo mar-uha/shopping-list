@@ -12,6 +12,7 @@ import { ProductsService } from '../products.service';
 })
 export class ListComponent implements OnInit {
 
+  productSelectedCount:number = 0;
   allProducts: Product[] = [];
   products: Product[] = [];
   selectedOptions: Product[] = [];
