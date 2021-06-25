@@ -15,7 +15,7 @@ export class ListComponent implements OnInit {
   productSelectedCount:number = 0;
   allProducts: Product[] = [];
   products: Product[] = [];
-  selectedOptions: Product[] = [];
+  selectedOptions: String[] = [];
   
   constructor(public dialog: MatDialog,
     public productsService: ProductsService) { }
@@ -23,6 +23,9 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.products = this.productsService.list();
     this.allProducts = this.products;
+    this.productsService.productsToBuy.subscribe(products => 
+      this.selectedOptions = products.map(p => p.name)
+    );
   }
 
   filterList(value: string): void {
@@ -46,7 +49,8 @@ export class ListComponent implements OnInit {
     });
   }
 
-  onNgModelChange(e: any): void{
-    this.productsService.setProductToBuyCount(this.selectedOptions.length);
+  onNgModelChange(e: any): void {
+    const productsToBuy = this.allProducts.filter(p => this.selectedOptions.find(s => s === p.name) !== undefined );
+    this.productsService.setProductsToBuy(productsToBuy);
   }
 }

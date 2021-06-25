@@ -7,7 +7,8 @@ import { Product } from './models/product';
 })
 export class ProductsService {
 
-  productToBuyCount: BehaviorSubject<number> = new BehaviorSubject(0);
+  // productToBuyCount: BehaviorSubject<number> = new BehaviorSubject(0);
+  productsToBuy: BehaviorSubject<Product[]> = new BehaviorSubject(new Array());
 
   constructor() { }
 
@@ -45,8 +46,8 @@ export class ProductsService {
     return products;
   }
   
-  setProductToBuyCount(productCount: number): void {
-    this.productToBuyCount.next(productCount);
+  setProductsToBuy(products: Product[]): void {
+    this.productsToBuy.next(products);
   }
 
 }

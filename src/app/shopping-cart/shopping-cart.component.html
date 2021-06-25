@@ -1,1 +1,7 @@
-<p>shopping-cart works!</p>
+<ng-container *ngIf="productsToBuy.length > 0">
+  <mat-selection-list #myProducts (ngModelChange)="onNgModelChange($event)">
+    <mat-list-option *ngFor="let product of productsToBuy" [value]="product.name">
+      {{product.name}}
+    </mat-list-option>
+  </mat-selection-list>
+</ng-container>

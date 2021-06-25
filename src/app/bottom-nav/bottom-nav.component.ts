@@ -13,8 +13,8 @@ export class BottomNavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productService.productToBuyCount.subscribe(value => 
-      this.productToBuyCount = value
+    this.productService.productsToBuy.subscribe(products => 
+      this.productToBuyCount = products.length
     );
   }
 
