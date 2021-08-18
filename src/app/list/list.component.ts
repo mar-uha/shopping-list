@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subject } from 'rxjs/internal/Subject';
+import { Subject } from 'rxjs';
 import { CreateProductComponent } from '../create-product/create-product.component';
 import { DialogData } from '../models/dialog-data';
 import { Product } from '../models/product';
