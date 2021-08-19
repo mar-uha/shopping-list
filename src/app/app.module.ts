@@ -3,15 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Angular Material https://material.angular.io/
-import { MatListModule } from '@angular/material/list';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +24,7 @@ import { SearchComponent } from './search/search.component';
 import { CreateProductComponent } from './create-product/create-product.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { BottomNavComponent } from './bottom-nav/bottom-nav.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { BottomNavComponent } from './bottom-nav/bottom-nav.component';
     SearchComponent,
     CreateProductComponent,
     ShoppingCartComponent,
-    BottomNavComponent
+    BottomNavComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +56,7 @@ import { BottomNavComponent } from './bottom-nav/bottom-nav.component';
     MatFormFieldModule,
     MatInputModule,
     MatBadgeModule,
+    MatMenuModule,
     MatDialogModule
   ],
   providers: [],

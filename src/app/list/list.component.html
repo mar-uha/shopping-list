@@ -1,11 +1,31 @@
 <app-search [searchText]="filterText" (searchTextChange)="filterList($event)"></app-search>
 
 <ng-container *ngIf="products.length > 0; else missingProduct" >
-  <mat-selection-list #myProducts [(ngModel)]="selectedOptions" (ngModelChange)="onNgModelChange($event)">
-    <mat-list-option *ngFor="let product of products"  [value]="product.name">
+  <mat-list (ngModelChange)="onNgModelChange($event)">
+    <mat-list-item *ngFor="let product of products">
+      <button mat-icon-button matBadge="{{product.count}}" matBadgePosition="before" (click)="addProductToBuy(product.name)">
+        <mat-icon>add_shopping_cart</mat-icon>
+      </button>
+      <button mat-icon-button (click)="removeProductToBuy(product.name)" [disabled]="product.count === 0">
+        <mat-icon>remove</mat-icon>
+      </button>
       {{product.name}}
-    </mat-list-option>
-  </mat-selection-list>
+      <span class="spacer"></span>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" class="list-menu">
+        <button mat-menu-item (click)="renameProduct(product.name)">
+          <mat-icon>edit</mat-icon>
+          <span>Rename</span>
+        </button>
+        <button mat-menu-item (click)="deleteProduct(product.name)">
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+      </mat-menu>
+    </mat-list-item>
+  </mat-list>
 </ng-container>
 <ng-template #missingProduct>
     Adding {{filterText}} ?

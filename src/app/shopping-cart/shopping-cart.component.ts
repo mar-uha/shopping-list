@@ -7,7 +7,7 @@ import { ProductsService } from '../products.service';
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.sass']
 })
-export class ShoppingCartComponent {
+export class ShoppingCartComponent implements OnInit {
 
   productsToBuy: Product[] = [];
 
