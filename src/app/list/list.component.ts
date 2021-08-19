@@ -21,7 +21,6 @@ export class ListComponent implements OnInit {
    */
   allProducts: Product[] = [];
   products: Product[] = [];
-  selectedOptions: String[] = [];
 
   filterText = "";
   filterTextChange: Subject<string> = new Subject<string>();
@@ -32,10 +31,7 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.products = this.productsService.list();
     this.allProducts = this.products;
-
-    this.productsService.productsToBuy.subscribe(products => {
-      this.selectedOptions = products.map(p => p.name);
-    });
+    this.productsService.setProductsToBuy(this.products.filter(p => p.isSelected));
   }
 
   filterList(value: string): void {
@@ -47,6 +43,9 @@ export class ListComponent implements OnInit {
     this.filterText = value;
   }
 
+  /**
+   * Open a dialog box to create a new product in the store.
+   */
   openDialog(): void {
     const dialogRef = this.dialog.open(CreateProductComponent, {
       width: '250px',
@@ -64,6 +63,10 @@ export class ListComponent implements OnInit {
     });
   }
 
+  /**
+   * Rename a product in the store.
+   * @param oldProductName Product name to rename.
+   */
   renameProduct(oldProductName: string): void {
     const dialogRef = this.dialog.open(CreateProductComponent, {
       width: '250px',
@@ -77,11 +80,9 @@ export class ListComponent implements OnInit {
     });
   }
 
-  onNgModelChange(e: any): void {
-    const productsToBuy = this.allProducts.filter(p => this.selectedOptions.find(s => s === p.name) !== undefined);
-    this.productsService.setProductsToBuy(productsToBuy);
-  }
-
+  /**
+   * Adding to the store a missing product.
+   */
   addMissingProduct(): void {
     this.products = this.productsService.create({
         name: this.filterText,
@@ -92,8 +93,8 @@ export class ListComponent implements OnInit {
   }
 
   /**
-   * 
-   * @param productName 
+   * Add 1 unit of this product.
+   * @param productName Product name to add 1 unit.
    */
   addProductToBuy(productName: string): void {
     let product = this.products.find(p => p.name === productName);
@@ -101,18 +102,7 @@ export class ListComponent implements OnInit {
       product.count += 1;
       if (product.count == 1) {
         product.isSelected = true;
-      }
-    }
-
-    this.productsService.save(this.products);
-  }
-
-  removeProductToBuy(productName: string): void {
-    let product = this.products.find(p => p.name === productName);
-    if (product) {
-      product.count -= 1;
-      if (product.count == 0) {
-        product.isSelected = false;
+        this.productsService.setProductsToBuy(this.products.filter(p => p.isSelected));
       }
     }
 
@@ -120,8 +110,25 @@ export class ListComponent implements OnInit {
   }
 
   /**
-   * 
-   * @param productName 
+   * Remove 1 unit of this product.
+   * @param productName Product name to remove 1 unit.
+   */
+  removeProductToBuy(productName: string): void {
+    let product = this.products.find(p => p.name === productName);
+    if (product) {
+      product.count -= 1;
+      if (product.count == 0) {
+        product.isSelected = false;
+        this.productsService.setProductsToBuy(this.products.filter(p => p.isSelected));
+      }
+    }
+
+    this.productsService.save(this.products);
+  }
+
+  /**
+   * Delete product from the store.
+   * @param productName Product name to delete.
    */
   deleteProduct(productName: string): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
