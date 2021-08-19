@@ -7,7 +7,7 @@
   </a>
 
   <!-- List of product to buy -->
-  <a class="badges-nav__destination" routerLink="/Shopping" routerLinkActive="badges-nav__destination--active">
+  <a [@bounce]="bounceState" class="badges-nav__destination" routerLink="/Shopping" routerLinkActive="badges-nav__destination--active">
     <mat-icon matBadge="{{productToBuyCount}}" matBadgeColor="accent">shopping_cart</mat-icon>
     <span class="badges-nav__label">Shopping cart</span>
   </a>

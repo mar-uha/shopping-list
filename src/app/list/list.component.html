@@ -1,8 +1,8 @@
-<app-search [searchText]="filterText" (searchTextChange)="filterList($event)"></app-search>
+<app-search [searchText]="filterText" (searchTextChange)="filterList($event)" class="search"></app-search>
 
 <ng-container *ngIf="products.length > 0; else missingProduct" >
-  <mat-list>
-    <mat-list-item *ngFor="let product of products">
+  <mat-list [@filterAnimation]="products.length">
+    <mat-list-item *ngFor="let product of products" class="product">
       <button mat-icon-button matBadge="{{product.count}}" matBadgePosition="before" [matBadgeHidden]="product.count === 0" (click)="addProductToBuy(product.name)">
         <mat-icon>add_shopping_cart</mat-icon>
       </button>
