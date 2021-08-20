@@ -86,7 +86,7 @@ export class ListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((productName: string) => {
       if (productName) {
         this.products = this.productsService.create({
-          name: this.filterText,
+          name: productName,
           count: 0,
           isSelected: false
         } as Product);
