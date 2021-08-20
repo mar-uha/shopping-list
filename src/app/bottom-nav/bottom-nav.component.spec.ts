@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { BottomNavComponent } from './bottom-nav.component';
 
@@ -8,7 +9,10 @@ describe('BottomNavComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BottomNavComponent ]
+      declarations: [ BottomNavComponent ],
+      imports: [
+        BrowserAnimationsModule
+      ]
     })
     .compileComponents();
   });

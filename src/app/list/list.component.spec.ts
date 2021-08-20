@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ListComponent } from './list.component';
 
@@ -8,7 +10,11 @@ describe('ListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListComponent ]
+      declarations: [ ListComponent ],
+      imports: [
+        MatDialogModule,
+        BrowserAnimationsModule
+      ],
     })
     .compileComponents();
   });
