@@ -1,3 +1,4 @@
+import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
@@ -9,7 +10,8 @@ describe('AppComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        MockBottomNavComponent
       ],
     }).compileComponents();
   });
@@ -33,3 +35,10 @@ describe('AppComponent', () => {
   //   expect(compiled.querySelector('.content span').textContent).toContain('shopping-list app is running!');
   // });
 });
+
+@Component({
+  selector: 'app-bottom-nav',
+  template: ''
+})
+class MockBottomNavComponent {
+}

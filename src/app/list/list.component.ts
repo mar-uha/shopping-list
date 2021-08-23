@@ -6,7 +6,7 @@ import { CreateProductComponent } from '../create-product/create-product.compone
 import { DialogData } from '../models/dialog-data';
 import { Product } from '../models/product';
 import { ProductsService } from '../products.service';
-import { trigger, transition, animate, style, query, stagger, state, keyframes } from '@angular/animations';
+import { trigger, transition, animate, style, query, stagger } from '@angular/animations';
 
 @Component({
   selector: 'app-list',
