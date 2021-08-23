@@ -120,7 +120,7 @@ export class ListComponent implements OnInit {
         count: 0,
         isSelected: false
       } as Product);
-    this.filterText = "";
+    this.filterText = '';
   }
 
   /**
