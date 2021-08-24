@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatBadgeModule } from '@angular/material/badge';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { Product } from '../models/product';
 import { ProductsService } from '../products.service';
 
@@ -13,7 +14,7 @@ import { ListComponent } from './list.component';
 describe('ListComponent', () => {
   let component: ListComponent;
   let fixture: ComponentFixture<ListComponent>;
-  const fakeProductsService = jasmine.createSpyObj<ProductsService>('ProductsService', ['create', 'list', 'save', 'setProductsToBuy'])
+  const fakeProductsService = jasmine.createSpyObj<ProductsService>('ProductsService', ['create', 'delete', 'list', 'save', 'setProductsToBuy']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -22,7 +23,7 @@ describe('ListComponent', () => {
         MockSearchComponent
       ],
       providers: [
-        { provide: ProductsService, useValue: fakeProductsService },
+        { provide: ProductsService, useValue: fakeProductsService }
       ],
       imports: [
         BrowserAnimationsModule,
@@ -57,7 +58,6 @@ describe('ListComponent', () => {
       count: 0,
       isSelected: false
     }] as Array<Product>);
-    
     
     listComponent.addMissingProduct();
 
@@ -108,6 +108,51 @@ describe('ListComponent', () => {
     expect(listComponent.products.find(p => p.name === 'Eggs')).not.toBeNull();
     expect(listComponent.products.find(p => p.name === 'Eggs')?.count).toEqual(5);
     expect(listComponent.products.find(p => p.name === 'Eggs')?.isSelected).toBeTrue();
+  });
+
+  it(`should remove 1 quantity of product and remove product from the shopping list`, () => {
+    const fixture = TestBed.createComponent(ListComponent);
+    const listComponent = fixture.componentInstance;
+    listComponent.products = [
+      {
+        name: 'Carrot',
+        isSelected: false,
+        count: 0
+      },
+      {
+        name: 'Eggs',
+        isSelected: true,
+        count: 6
+      },
+      {
+        name: 'Mustard',
+        isSelected: true,
+        count: 1
+      }] as Array<Product>;
+
+    fakeProductsService.setProductsToBuy.and.callFake(() => null);
+    fakeProductsService.save.and.returnValue([
+      {
+        name: 'Carrot',
+        isSelected: false,
+        count: 0
+      },
+      {
+        name: 'Eggs',
+        isSelected: true,
+        count: 6
+      },
+      {
+        name: 'Mustard',
+        isSelected: false,
+        count: 0
+      }] as Array<Product>);
+    
+    listComponent.removeProductToBuy('Mustard');
+
+    expect(listComponent.products.find(p => p.name === 'Mustard')).not.toBeNull();
+    expect(listComponent.products.find(p => p.name === 'Mustard')?.count).toEqual(0);
+    expect(listComponent.products.find(p => p.name === 'Mustard')?.isSelected).toBeFalse();
   });
 
   // it(`should have as title 'shopping-list'`, () => {
