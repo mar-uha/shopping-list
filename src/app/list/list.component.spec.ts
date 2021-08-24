@@ -155,6 +155,49 @@ describe('ListComponent', () => {
     expect(listComponent.products.find(p => p.name === 'Mustard')?.isSelected).toBeFalse();
   });
 
+  it(`should filter the list of products`, () => {
+    const fixture = TestBed.createComponent(ListComponent);
+    const listComponent = fixture.componentInstance;
+    listComponent.products = [
+      {
+        name: 'Carrot',
+        isSelected: false,
+        count: 0
+      },
+      {
+        name: 'Eggs',
+        isSelected: true,
+        count: 6
+      },
+      {
+        name: 'Mustard',
+        isSelected: true,
+        count: 1
+      }] as Array<Product>;
+    listComponent.allProducts = [
+        {
+          name: 'Carrot',
+          isSelected: false,
+          count: 0
+        },
+        {
+          name: 'Eggs',
+          isSelected: true,
+          count: 6
+        },
+        {
+          name: 'Mustard',
+          isSelected: true,
+          count: 1
+        }] as Array<Product>;
+
+
+    listComponent.filterList('Must');
+
+    expect(listComponent.products.length).withContext('You should have one product named "Mustard"').toBe(1);
+    expect(listComponent.products.find(p => p.name === 'Mustard')).not.toBeNull();
+  });
+
   // it(`should have as title 'shopping-list'`, () => {
   //   const fixture = TestBed.createComponent(AppComponent);
   //   const app = fixture.componentInstance;
