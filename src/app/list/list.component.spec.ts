@@ -64,7 +64,97 @@ describe('ListComponent', () => {
     expect(listComponent.products.length).withContext('The `addMissingProduct` method should add 1 Product').toBe(1);
     expect(listComponent.filterText).toEqual('');
   });
-  
+
+  it(`should add 1 quantity of product to the shopping list`, () => {
+    const fixture = TestBed.createComponent(ListComponent);
+    const listComponent = fixture.componentInstance;
+    listComponent.products = [
+      {
+        name: 'Carrot',
+        isSelected: false,
+        count: 0
+      },
+      {
+        name: 'Eggs',
+        isSelected: true,
+        count: 6
+      },
+      {
+        name: 'Mustard',
+        isSelected: true,
+        count: 1
+      }] as Array<Product>;
+
+    fakeProductsService.setProductsToBuy.and.callFake(() => null);
+    fakeProductsService.save.and.returnValue([
+      {
+        name: 'Carrot',
+        isSelected: false,
+        count: 0
+      },
+      {
+        name: 'Eggs',
+        isSelected: true,
+        count: 7
+      },
+      {
+        name: 'Mustard',
+        isSelected: true,
+        count: 1
+      }] as Array<Product>);
+    
+    listComponent.addProductToBuy('Eggs');
+
+    expect(listComponent.products.find(p => p.name === 'Eggs')).not.toBeNull();
+    expect(listComponent.products.find(p => p.name === 'Eggs')?.count).toEqual(7);
+    expect(listComponent.products.find(p => p.name === 'Eggs')?.isSelected).toBeTrue();
+  });
+
+  it(`should add 1 quantity of product and add product to the shopping list`, () => {
+    const fixture = TestBed.createComponent(ListComponent);
+    const listComponent = fixture.componentInstance;
+    listComponent.products = [
+      {
+        name: 'Carrot',
+        isSelected: false,
+        count: 0
+      },
+      {
+        name: 'Eggs',
+        isSelected: true,
+        count: 6
+      },
+      {
+        name: 'Mustard',
+        isSelected: true,
+        count: 1
+      }] as Array<Product>;
+
+    fakeProductsService.setProductsToBuy.and.callFake(() => null);
+    fakeProductsService.save.and.returnValue([
+      {
+        name: 'Carrot',
+        isSelected: true,
+        count: 1
+      },
+      {
+        name: 'Eggs',
+        isSelected: true,
+        count: 6
+      },
+      {
+        name: 'Mustard',
+        isSelected: false,
+        count: 0
+      }] as Array<Product>);
+    
+    listComponent.addProductToBuy('Carrot');
+
+    expect(listComponent.products.find(p => p.name === 'Carrot')).not.toBeNull();
+    expect(listComponent.products.find(p => p.name === 'Carrot')?.count).toEqual(1);
+    expect(listComponent.products.find(p => p.name === 'Carrot')?.isSelected).toBeTrue();
+  });
+
   it(`should remove 1 quantity of product to the shopping list`, () => {
     const fixture = TestBed.createComponent(ListComponent);
     const listComponent = fixture.componentInstance;
@@ -196,6 +286,48 @@ describe('ListComponent', () => {
 
     expect(listComponent.products.length).withContext('You should have one product named "Mustard"').toBe(1);
     expect(listComponent.products.find(p => p.name === 'Mustard')).not.toBeNull();
+  });
+
+  it(`should diplay all products`, () => {
+    const fixture = TestBed.createComponent(ListComponent);
+    const listComponent = fixture.componentInstance;
+    listComponent.products = [
+      {
+        name: 'Carrot',
+        isSelected: false,
+        count: 0
+      },
+      {
+        name: 'Eggs',
+        isSelected: true,
+        count: 6
+      },
+      {
+        name: 'Mustard',
+        isSelected: true,
+        count: 1
+      }] as Array<Product>;
+    listComponent.allProducts = [
+        {
+          name: 'Carrot',
+          isSelected: false,
+          count: 0
+        },
+        {
+          name: 'Eggs',
+          isSelected: true,
+          count: 6
+        },
+        {
+          name: 'Mustard',
+          isSelected: true,
+          count: 1
+        }] as Array<Product>;
+
+
+    listComponent.filterList('');
+
+    expect(listComponent.products.length).withContext('You should have three products"').toBe(3);
   });
 
   // it(`should have as title 'shopping-list'`, () => {
