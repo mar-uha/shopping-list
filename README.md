@@ -1,7 +1,7 @@
 # ShoppingList
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.3.
-Upgraded to version 14.0.6.
+Upgraded to version 15.2.3.
 
 ## Development server
 

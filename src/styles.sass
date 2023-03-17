@@ -1,11 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~material-bottom-nav'
+@use 'material-bottom-nav' as bottom-nav
 
 .bottom-nav
-    @include bottom-nav($background-color: #009688, $active-color: #FFFFFF, $inactive-color: #E0E0E0)
+  @include bottom-nav.root($background-color: #009688, $active-color: #FFFFFF, $inactive-color: #E0E0E0)
 
 .hidden-labels-nav
-  @include bottom-nav($background-color: #009688, $active-color: #FFFFFF, $inactive-color: #E0E0E0, $hide-inactive-labels: true)
+  @include bottom-nav.root($background-color: #009688, $active-color: #FFFFFF, $inactive-color: #E0E0E0, $hide-inactive-labels: true)
 
 .badges-nav
-  @include bottom-nav($background-color: white, $active-color: #6200EE, $inactive-color: #757575, $hide-inactive-labels: true)
+  @include bottom-nav.root($background-color: white, $active-color: #6200EE, $inactive-color: #757575, $hide-inactive-labels: true)
